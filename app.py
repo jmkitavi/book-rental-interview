@@ -25,12 +25,16 @@ charges = {
   'story_one': {
     "total": 0,
     "number": 0,
-  }
+  },
+  'story_two': {
+    "total": 0,
+    "number": 0,
+  },
 }
 
+
 """Story 1"""
-class Story1:
-      
+class Story1:  
   def __init__(self, number_of_books, duration):
     self.number_of_books = number_of_books
     self.duration = duration
@@ -38,6 +42,26 @@ class Story1:
   def calculate_charge(self, per_day_rental):
     return self.number_of_books * (self.duration * per_day_rental)
 
+
+
+"""Story 2"""
+class Story2(Story1):
+  def __init__(self, number_of_books, duration, book_type):
+    super().__init__(number_of_books, duration)
+    self.book_type = book_type
+    
+  def calculate_charge(self):
+    if self.book_type == 'regular':
+      per_day_rental = 1.5
+
+      return self.number_of_books * (self.duration * per_day_rental)
+
+    if self.book_type == 'fiction':
+      per_day_rental = 3
+      return self.number_of_books * (self.duration * per_day_rental)
+    if self.book_type == 'novel':
+      per_day_rental = 1.5
+      return self.number_of_books * (self.duration * per_day_rental)
 
 
 
@@ -64,5 +88,9 @@ def index():
       story_one = Story1(int(number_of_books), int(book_duration))
       story_one_charges = story_one.calculate_charge(1)
       charges['story_one']['total'] = charges['story_one']['total'] + story_one_charges
+
+      story_two = Story2(int(number_of_books), int(book_duration), book_type)
+      story_two_charges = story_two.calculate_charge()
+      charges['story_two']['total'] = charges['story_two']['total'] + story_two_charges
 
   return render_template('index.html', books=books, charges=charges)

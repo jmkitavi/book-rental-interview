@@ -1,0 +1,9 @@
+*env*
+*.pyc
+*pycache*
+*.DS_Store
+*.db*
+*.cache*
+.coverage
+*tags*
+*migrations*

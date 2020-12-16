@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{% block title %} Book Rental {% endblock %}</h1>
+
+
+  <div class="row">
+    <div class="col">
+      <form method="post" class="mb-5">
+        <div class="form-group form-inline">
+          <label for="type" class="mr-sm-5">Type of book:</label>
+          <select name="book_type" class="form-control">
+            {% for book in books %}
+              <option>{{ book['type'] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="number" class="mr-sm-5">No. of books:</label>
+          <input type="text" name="number" placeholder="Books" class="form-control mb-2 mr-sm-4"/>
+        </div>
+
+        <div class="form-group form-inline">
+          <label for="duration" class="mr-sm-2">Duration of rental:</label>
+          <input type="text" name="duration" placeholder="Duration" class="form-control mb-2 mr-sm-2" />
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">ADD</button>
+        </div>
+      </form>
+
+      <h5>Rented books</h5>
+      
+    </div>
+
+    <div class="col">
+
+      <h4>Story 1</h4>
+
+      <p>
+        Price per book:  1<br>
+        Total charges: <br>
+      </p>
+
+
+    <button class="btn btn-primary">Clear</button>
+
+    </div>
+
+    
+  </div>
+
+{% endblock %}

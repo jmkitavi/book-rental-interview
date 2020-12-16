@@ -32,6 +32,12 @@
       </form>
 
       <h5>Rented books</h5>
+
+      <ul>
+        {% for rented in charges['books'] %}
+          <li>{{ rented }}</li>
+        {% endfor %}
+      </ul>
       
     </div>
 
@@ -41,7 +47,7 @@
 
       <p>
         Price per book:  1<br>
-        Total charges: <br>
+        Total charges: {{ charges['story_one']['total'] }}<br>
       </p>
 
 

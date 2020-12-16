@@ -30,6 +30,10 @@ charges = {
     "total": 0,
     "number": 0,
   },
+  'story_three': {
+    "total": 0,
+    "number": 0,
+  }
 }
 
 
@@ -64,6 +68,40 @@ class Story2(Story1):
       return self.number_of_books * (self.duration * per_day_rental)
 
 
+"""Story 3"""
+class Story3(Story1):
+  def __init__(self, number_of_books, duration, book_type):
+    super().__init__(number_of_books, duration)
+    self.book_type = book_type
+
+  def calculate_charge(self):
+    if self.book_type == 'regular':
+      per_day_rental = 2
+      if self.duration > 2:
+            per_day_rental = 1.5
+            first_two_days = self.regular_first_two_days()
+            remaining_days = self.duration - 2
+            remaining_days_charges = self.number_of_books * (remaining_days * per_day_rental)
+            total_charge = first_two_days + remaining_days_charges
+            return total_charge
+
+      return self.number_of_books * (self.duration * per_day_rental)
+
+    if self.book_type == 'fiction':
+      per_day_rental = 3
+      return self.number_of_books * (self.duration * per_day_rental)
+    if self.book_type == 'novel':
+      per_day_rental = 4.5
+      if self.duration > 3:
+        per_day_rental = 1.5
+        return self.number_of_books * (self.duration * per_day_rental)
+
+      return self.number_of_books * (self.duration * per_day_rental)
+  
+  def regular_first_two_days(self):
+    per_day_rental = 1
+    return self.number_of_books * (2 * per_day_rental)
+
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
@@ -92,5 +130,10 @@ def index():
       story_two = Story2(int(number_of_books), int(book_duration), book_type)
       story_two_charges = story_two.calculate_charge()
       charges['story_two']['total'] = charges['story_two']['total'] + story_two_charges
+
+      story_three = Story3(int(number_of_books), int(book_duration), book_type)
+      story_three_charges = story_three.calculate_charge()
+      charges['story_three']['total'] = charges['story_three']['total'] + story_three_charges
+
 
   return render_template('index.html', books=books, charges=charges)
